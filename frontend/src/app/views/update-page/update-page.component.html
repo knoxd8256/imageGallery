@@ -1,0 +1,22 @@
+<main>
+    <form [formGroup]="postForm">
+        <label>
+            Title:
+            <input type="text" formControlName="title">
+        </label>
+        <label>
+            Description:
+            <textarea formControlName="description" cols="30" rows="10"></textarea>
+        </label>
+        <label>
+            Image Url:
+            <input type="text" formControlName="imageUrl">
+        </label>
+        <label>
+            Tags (comma separated):
+            <input type="text" formControlName="tags">
+        </label>
+        <button (click)="submitFunction()">Submit</button>
+        <button (click)="deletePost()">Delete</button>
+    </form>
+</main>

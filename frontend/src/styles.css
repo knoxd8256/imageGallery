@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 16pt;
+    background-color: #f9e5e0;
+    margin: 0;
+    padding: 0;
+}

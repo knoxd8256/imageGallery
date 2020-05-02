@@ -1,0 +1,28 @@
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    line-height: 2em;
+    margin-bottom: 1em;
+}
+a {
+    background-color: plum;
+    text-decoration: none;
+    line-height: inherit;
+    flex: 1;
+    color: #000;
+    text-align: center;
+    transition: background-color 140ms ease-in;
+}
+a:hover {
+    background-color: lavenderblush;
+}
+h1 {
+    font-size: 180%;
+    width: 90%;
+    padding-bottom: .2em;
+    margin-bottom: .5em;
+    margin-left: 5%;
+    border-bottom: black 3px solid;
+}

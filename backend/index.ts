@@ -1,10 +1,12 @@
 // Imports.
 import express from 'express';
-import mongodb from 'mongodb';
+import mongodb, { ObjectId } from 'mongodb';
+import cors from 'cors';
 
 // Create application.
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // MongoDB Client.
 const MongoClient = new mongodb.MongoClient('mongodb://localhost:27017', { useUnifiedTopology: true });
@@ -15,6 +17,7 @@ const collection = db.collection('images');
 // Response shorthand function.
 function respond(content: any, response: express.Response<any>, code: number = 200) {
     response.status(code)
+    response.header("Access-Control-Allow-Origin", "*");
     response.send(content)
     return;
 }
@@ -57,6 +60,27 @@ function isPost(content: Post, callback: PostCallback): void {
 
 // Routes.
 
+// Single getter route.
+app.post('/getPost', (req, res) => {
+    if (mongodb.ObjectId.isValid(req.body._id)) {
+        collection.findOne({_id: new ObjectId(req.body._id)}, (error, post) => {
+            if (error) {
+                console.log(error.message);
+                respond(error.message, res, 500);
+            }
+            else if (post) {
+                respond(post, res);
+            }
+            else {
+                respond("Post not found!", res, 400)
+            }
+        });
+    }
+    else {
+        respond("ID invalid.", res, 400)
+    }
+});
+
 // Post getter route.
 app.post('/getPosts', (req, res) => {
     // Filter to tags if there are any.
@@ -65,7 +89,7 @@ app.post('/getPosts', (req, res) => {
     collection.find(filter).toArray((error, posts) => {
         if (error) {
             console.log(error.message);
-            respond(error.message, res, 500);
+            respond({message: error.message}, res, 500);
         }
         else {
             respond(posts, res);
@@ -82,16 +106,16 @@ app.post('/addPost', (req, res) => {
             collection.insertOne(content, (error) => {
                 if (error) {
                     console.log(error.message);
-                    respond("There was an error adding your post.", res, 500)
+                    respond({message: "There was an error adding your post."}, res, 500)
                 }
                 else {
                     console.log("Successfully added post!");
-                    respond("Successfully added post!", res);
+                    respond({message: "Successfully added post!"}, res);
                 }
             });
             return;
         }
-        respond(resText, res, 400);
+        respond({message: resText}, res, 400);
         return;
     });
 });
@@ -103,18 +127,18 @@ app.post('/deletePost', (req, res) => {
     if (mongodb.ObjectId.isValid(rawPostId)) {
         postId = new mongodb.ObjectId(rawPostId);
     } else {
-        respond('Invalid ID.', res, 400);
+        respond({message: 'Invalid ID.'}, res, 400);
         return;
     }
     collection.findOneAndDelete({_id: postId}, (err, result) => {
         if (err) {
             console.log(err.message);
-            respond("Could not delete post.", res, 500);
+            respond({message: "Could not delete post."}, res, 500);
         }
         if (result.value == null) {
-            respond("No such document found.", res, 400)
+            respond({message: "No such document found."}, res, 400)
         } else {
-            respond("Deleted post!", res)
+            respond({message: "Deleted post!"}, res)
             return;
         }
     });
@@ -129,17 +153,17 @@ app.post('/updatePost', (req, res) => {
         collection.replaceOne({"_id": content._id}, content, (err, result) => {
             if (err) {
                 console.log(err.message);
-                respond("There was and error updating the document.", res, 500);
+                respond({message: "There was and error updating the document."}, res, 500);
             } else {
                 if (result.matchedCount == 0) {
-                    respond("No such document found.", res, 400);
+                    respond({message: "No such document found."}, res, 400);
                     return;
                 }
-                respond("Document successfully updated!", res);
+                respond({message: "Document successfully updated!"}, res);
             }
         })
     } else {
-        respond(result ? "Invalid Id." : resText, res, 400);
+        respond(result ? {message: "Invalid Id."} : {message: resText}, res, 400);
     }
 });
 });

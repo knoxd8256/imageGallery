@@ -1,0 +1,22 @@
+article {
+    font-size: 75%;
+    background-color: white;
+    height: fit-content;
+    width: 12em;
+    padding: 2em;
+    border: solid grey 2px;
+    border-radius: 1em;
+}
+h2 {
+    text-align: center;
+}
+figure {
+    margin:0;
+    padding: 1em;
+    width: 10em;
+    height: 10em;
+    overflow: hidden;
+}
+img {
+    width: 100%;
+}
