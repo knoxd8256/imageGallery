@@ -8,6 +8,13 @@ import { IPost } from 'src/app/core/IPost.model';
 })
 export class PostCardComponent implements OnInit {
   @Input("post") post: IPost;
+
+  isModal: boolean;
+
+  modal() {
+    this.isModal = !this.isModal;
+  }
+
   constructor() { }
 
   ngOnInit(): void {

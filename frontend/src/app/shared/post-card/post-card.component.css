@@ -8,15 +8,73 @@ article {
     border-radius: 1em;
 }
 h2 {
+    font-weight: normal;
     text-align: center;
 }
 figure {
     margin:0;
     padding: 1em;
     width: 10em;
-    height: 10em;
+    max-height: 10em;
     overflow: hidden;
 }
 img {
     width: 100%;
+    cursor: pointer;
+}
+section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+.taglist {
+    transition: background-color 40ms ease-in-out;
+    width: fit-content;
+    padding: .4em;
+    line-height: 1em;
+    margin: .2em;
+    text-decoration: none;
+    color: black;
+    background-color: lightgray;
+    border-radius: .4em;
+}
+
+.button {
+    transition: background-color 40ms ease-in-out;
+    display: block;
+    width: fit-content;
+    padding: .4em;
+    line-height: 1em;
+    margin: .4em;
+    text-decoration: none;
+    color: white;
+    background-color: mediumpurple;
+    border-radius: .4em;
+    margin-bottom: 0;
+}
+
+.button:hover, .button:focus {
+    background-color: mediumslateblue;
+}
+
+.taglist:hover, .taglist:focus {
+    background-color: gray;
+}
+
+.modal {
+    position: fixed;
+    width: 80%;
+    height: 80%;
+    margin: 5%;
+    top: 0;
+    left: 0;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.modal figure {
+    width: 20rem;
+    max-height: 20rem;
 }

@@ -1,13 +1,12 @@
-<article>
+<article [ngClass] = "isModal ? 'modal' : ''">
     <h2>{{ post.title }}</h2>
     <figure>
-        <img [src]="post.imageUrl" [alt]="post.title">
+        <img (click)="modal()" [src]="post.imageUrl" [alt]="post.title">
     </figure>
     <section>
-        <h3>Tags:</h3>
         <a class= "taglist" [routerLink]="'/gallery'" [queryParams]="{tags: tag}" *ngFor="let tag of post.tags">{{tag}}</a>
     </section>
     <p>{{ post.description }}
-        <a [routerLink]="'/updatePost'" [queryParams]="{_id: post._id}">Update</a>
+        <a [routerLink]="'/updatePost'" class="button" [queryParams]="{_id: post._id}">Update</a>
     </p>
 </article>

@@ -14,7 +14,7 @@ export class GalleryProperComponent implements OnInit {
   searchForm = new FormGroup({
     searchBar: new FormControl('')
   });
-
+  
   onSearch() {
     this.router.navigate(["/gallery"], {queryParams: {tags: this.postService.parseTags(this.searchForm.controls.searchBar.value)}})
   }
@@ -23,7 +23,7 @@ export class GalleryProperComponent implements OnInit {
     this.getPosts()
     route.queryParamMap.subscribe(params => {
         let tags = params.getAll('tags');
-        this.posts = this.filterByTags(tags);
+        this.filterByTags(tags);
     })
   }
 
@@ -31,21 +31,27 @@ export class GalleryProperComponent implements OnInit {
     this.postService.items$.subscribe(x => this.posts = x)
   }
 
-  filterByTags(tags): IPost[] {
-    this.getPosts();
-    if (tags.length == 0 || tags[0] == ''){
-      return this.posts;
+  filterByTags(tags) {
+    if (tags.length == 0 || tags[0] == '') {
+      this.postService.getPosts();
+      this.getPosts();
+      return;
     }
-    let result: IPost[] = [];
-    tags.forEach(tag => {
-      this.posts.forEach((post) => {
-        if (post.tags.includes(tag) && result.includes(post) == false) {
-          result.push(post);
-        }
-      }
-      )
-    });
-    return result;
+    this.postService.getPosts(tags);
+    this.getPosts();
+    //if (tags.length == 0 || tags[0] == ''){
+    //  return this.posts;
+    //}
+    //let result: IPost[] = [];
+    //tags.forEach(tag => {
+    //  this.posts.forEach((post) => {
+    //    if (post.tags.includes(tag) && result.includes(post) == false) {
+    //      result.push(post);
+    //    }
+    //  }
+    //  )
+    //});
+    //return result;
   }
   ngOnInit(): void {
   }

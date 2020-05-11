@@ -1,4 +1,4 @@
-<form [formGroup]="searchForm"><input type="text" (submit)="onSearch()" formControlName="searchBar"> <button (click)="onSearch()">Search</button></form>
+<form [formGroup]="searchForm" class="search-form"><input type="text" class="search-bar" placeholder="Enter tags..." (submit)="onSearch()" formControlName="searchBar"> <button class="search-button" (click)="onSearch()">Search</button></form>
 <main>
     <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
 </main>

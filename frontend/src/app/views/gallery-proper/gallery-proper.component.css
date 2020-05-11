@@ -6,3 +6,34 @@ main {
     grid-template-columns: repeat(3, 1fr);
     margin-bottom: 1em;
 }
+
+.search-form {
+    margin: 1em;
+}
+
+.search-button {
+    transition: background-color 40ms ease-in-out;
+    border: none;
+    width: fit-content;
+    padding: .4em;
+    line-height: 1em;
+    margin: .4em;
+    text-decoration: none;
+    color: white;
+    background-color: mediumpurple;
+    border-radius: .4em;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.search-button:hover, .search-button:focus {
+    background-color: mediumslateblue;
+}
+
+.search-bar {
+    border-radius: .4em;
+    border: 1px darkgray solid;
+    padding: .4em;
+    line-height: 1em;
+    margin: .4em;
+}

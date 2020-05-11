@@ -14,7 +14,7 @@ export class PostServiceService {
     this.getPosts();
   }
 
-  private getPosts(tags: string = ""): void {
+  public getPosts(tags: string = ""): void {
     this.http.post('http://localhost:9001/getPosts', {"tags": tags})
     .subscribe((response) => {
       this._items.next(response as IPost[]);
